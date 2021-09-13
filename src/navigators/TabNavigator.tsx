@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrophy, faFolderPlus, faBriefcase, faHeart, } from '@fortawesome/free-solid-svg-icons'
 import { fontFamily, fontH3V3, primaryColor } from '../theme/styles';
 import { normalizeWithScale } from '../utils/fontUtil';
+import DetailScreen from '../screens/detail/DetailScreen';
 
 const Tab = createBottomTabNavigator();
 const getTabItemIcon = (route: any, focused: any) => {
@@ -73,6 +74,7 @@ const CustomTabNavigator = () => {
                     },
                 })}
             >
+                <Tab.Screen name={RouteNames.User.Detail} component={DetailScreen} />
                 <Tab.Screen name={RouteNames.User.TopStories} component={TopStories} />
                 <Tab.Screen name={RouteNames.User.NewStories} component={NewStoriesScreen} />
                 <Tab.Screen name={RouteNames.User.BestStories} component={BestStoriesScreen} />

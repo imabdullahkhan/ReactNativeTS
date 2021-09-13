@@ -4,5 +4,6 @@ export const RouteNames: any = {
     "NewStories": "New Stories",
     "BestStories": "Best Stories",
     "Jobs": "Jobs",
+    "Detail":"Detail"
   }
 }

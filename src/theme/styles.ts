@@ -1,4 +1,4 @@
-import { TextStyle } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 import { normalizeFont, normalizeHeight, normalizeWidth } from "../utils/fontUtil"
 export const fontFamily = {
     "Primary": {
@@ -31,7 +31,7 @@ export const fontH4 = normalizeFont(8);
 export const fontSmallSize = normalizeFont(6);
 
 
-export const screenMainContainer: any = {
+export const screenMainContainer : ViewStyle = {
     flex: 1,
     display: "flex",
     justifyContent: 'center',
