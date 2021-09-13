@@ -39,7 +39,6 @@ export const getTopStoriesData = (page = 1, limit = 15) => (dispatch: any, getSt
     if (Ids && Ids.length) {
         let IndexId = 0;
         return Ids.map(async (eachId: number, index: number) => {
-            console.log(eachId, " EachIds")
             let url = `/item/${eachId}.json?print=pretty`
             await fetchUtil({
                 url,
@@ -98,7 +97,6 @@ export const getNewStoriesData = (page = 1, limit = 15) => (dispatch: any, getSt
     if (Ids && Ids.length) {
         let IndexId = 0;
         return Ids.map(async (eachId: number, index: number) => {
-            console.log(eachId, " EachIds")
             let url = `/item/${eachId}.json?print=pretty`
             await fetchUtil({
                 url,
@@ -131,7 +129,6 @@ export const getBestStoriesData = (page = 1, limit = 15) => (dispatch: any, getS
     if (Ids && Ids.length) {
         let IndexId = 0;
         return Ids.map(async (eachId: number, index: number) => {
-            console.log(eachId, " EachIds")
             let url = `/item/${eachId}.json?print=pretty`
             await fetchUtil({
                 url,
@@ -164,7 +161,6 @@ export const getJobStoriesData = (page = 1, limit = 15) => (dispatch: any, getSt
     if (Ids && Ids.length) {
         let IndexId = 0;
         return Ids.map(async (eachId: number, index: number) => {
-            console.log(eachId, " EachIds")
             let url = `/item/${eachId}.json?print=pretty`
             await fetchUtil({
                 url,

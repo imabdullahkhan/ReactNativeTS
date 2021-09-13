@@ -8,7 +8,7 @@ import Config from '../config';
 const persistConfig = {
   key: Config.PERSIST_SECRET_KEY,
   storage: AsyncStorage,
-  whitelist: ['auth'],
+  whitelist: ['serviceReducer'],
   stateReconciler: autoMergeLevel2
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);

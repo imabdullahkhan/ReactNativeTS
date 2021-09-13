@@ -25,7 +25,7 @@ const App = () => {
     });
   }, []);
   const isDarkMode = useColorScheme() === 'dark';
-
+  console.disableYellowBox = true;
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };

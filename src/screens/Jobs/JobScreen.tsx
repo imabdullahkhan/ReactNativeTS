@@ -19,7 +19,6 @@ const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, j
         getIds(StoriesType.Job).then((response) => {
             let alreadyExistCount = jobStoriesData.length;
             if (alreadyExistCount > limit) {
-                console.log("SETTING PAGE")
                 setPage(alreadyExistCount / limit);
             }
             setLoading(false);

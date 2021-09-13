@@ -3,7 +3,7 @@ import { Share, View, TouchableOpacity, ScrollView, Text, FlatList, Linking, Pre
 import { fontFamily, fontH2, fontH3, greyedSchemeColor, primaryColor } from "../../theme/styles";
 import { normalizeHeight, normalizeWidth } from "../../utils/fontUtil";
 
-const StoriesListView = ({ url, title, score, by, time }: { url: string, title: string, score: number, by: string, time: number }) => {
+const StoriesListView = React.memo(({ url, title, score, by, time }: { url: string, title: string, score: number, by: string, time: number }) => {
     const loadInBrowser = (url: string) => {
         Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
     };
@@ -27,5 +27,5 @@ const StoriesListView = ({ url, title, score, by, time }: { url: string, title: 
             </View>
         </Pressable>
     )
-}
+})
 export default StoriesListView;
