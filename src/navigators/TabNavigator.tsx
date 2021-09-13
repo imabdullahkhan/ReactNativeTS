@@ -8,7 +8,7 @@ import BestStoriesScreen from '../screens/BestStories/BestStoriesScreen';
 import JobScreen from '../screens/Jobs/JobScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCog, faHome, faAddressCard, faStickyNote, faImages, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTrophy, faFolderPlus, faBriefcase, faHeart, } from '@fortawesome/free-solid-svg-icons'
 import { fontFamily, fontH3V3, primaryColor } from '../theme/styles';
 import { normalizeWithScale } from '../utils/fontUtil';
 
@@ -17,7 +17,7 @@ const getTabItemIcon = (route: any, focused: any) => {
     if (route.name === RouteNames.User.TopStories) {
         return (
             <FontAwesomeIcon
-                icon={faHome}
+                icon={faTrophy}
                 color={!focused ? '#2B3D5F40' : primaryColor}
                 size={normalizeWithScale(22)}
             />
@@ -26,14 +26,14 @@ const getTabItemIcon = (route: any, focused: any) => {
     if (route.name === RouteNames.User.NewStories) {
         return (
             <FontAwesomeIcon
-                icon={faStickyNote}
+                icon={faFolderPlus}
                 color={!focused ? '#2B3D5F40' : primaryColor}
                 size={normalizeWithScale(22)}
             />)
     }
     if (route.name === RouteNames.User.BestStories) {
         return (<FontAwesomeIcon
-            icon={faAddressCard}
+            icon={faHeart}
             color={!focused ? '#2B3D5F40' : primaryColor}
             size={normalizeWithScale(22)}
         />)
@@ -41,7 +41,7 @@ const getTabItemIcon = (route: any, focused: any) => {
     if (route.name === RouteNames.User.Jobs) {
         return (
             <FontAwesomeIcon
-                icon={faImages}
+                icon={faBriefcase}
                 color={!focused ? '#2B3D5F40' : primaryColor}
                 size={normalizeWithScale(22)}
             />)
