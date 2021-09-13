@@ -1,3 +1,4 @@
+import { TextStyle } from "react-native";
 import { normalizeFont, normalizeHeight, normalizeWidth } from "../utils/fontUtil"
 export const fontFamily = {
     "Primary": {
@@ -30,7 +31,15 @@ export const fontH4 = normalizeFont(8);
 export const fontSmallSize = normalizeFont(6);
 
 
-export const mainContainer = {
+export const screenMainContainer: any = {
     flex: 1,
-    display: "flex"
+    display: "flex",
+    justifyContent: 'center',
+    alignItems: 'center'
+}
+
+export const screenTitleStyles: TextStyle = {
+    fontSize: fontH2,
+    color: primaryColor,
+    fontFamily: fontFamily.Primary.Medium
 }

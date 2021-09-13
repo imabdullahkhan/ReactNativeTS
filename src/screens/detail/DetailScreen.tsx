@@ -1,25 +1,14 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity } from "react-native";
-import * as NavigationService from "react-navigation-helpers";
-/**
- * ? Local Imports
- */
-import colors from "@colors";
-import styles from "./DetailScreen.style";
-import Text from "@shared-components/text-wrapper/TextWrapper";
+import React from 'react'
+import { Text, View } from 'react-native'
+import styles from "./DetailScreen.style"
 
-export default class DetailScreen extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text h1>Detail Screen</Text>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => NavigationService.goBack()}
-        >
-          <Text color={colors.light.white}>Go back to Home</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+const DetailScreen: React.FC<any> = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.titleTextStyle}>Details Screen</Text>
+    </View>
+  )
 }
+
+export default DetailScreen
+
