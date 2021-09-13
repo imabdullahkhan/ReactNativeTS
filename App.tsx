@@ -11,6 +11,7 @@ import TabNavigator from './src/navigators/TabNavigator';
 import { persistor, store } from "./src/redux/store"
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from "react-redux";
+import { primaryColor } from './src/theme/styles';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -22,7 +23,7 @@ const App = () => {
     <>
       <Provider store={store} >
         <PersistGate loading={null} persistor={persistor}>
-          <StatusBarComponent barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <StatusBarComponent barStyle={'light-content'} backgroundColor={primaryColor} />
           <TabNavigator />
         </PersistGate>
       </Provider>

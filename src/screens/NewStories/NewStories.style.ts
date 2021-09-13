@@ -1,5 +1,5 @@
 import { ViewStyle, TextStyle, StyleSheet } from "react-native";
-import { fontH2, screenMainContainer } from "../../theme/styles";
+import { fontH2, screenMainContainer, screenTitleStyles } from "../../theme/styles";
 
 interface Style {
     container: ViewStyle;
@@ -11,7 +11,6 @@ export default StyleSheet.create<Style>({
         ...screenMainContainer
     },
     titleTextStyle: {
-        color: 'black',
-        fontSize: fontH2
+        ...screenTitleStyles
     },
 });

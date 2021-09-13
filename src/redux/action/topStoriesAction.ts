@@ -17,5 +17,5 @@ export const getTopStoriesId = () => (dispatch, getState) => {
 }
 export const FETCH_TOP_STORIES_DATA = "FETCH_TOP_STORIES_DATA"
 export const getTopStoriesData = (page = 1, limit = 15) => {
-
+    let url = `/topstories.json?print=pretty`;
 }
