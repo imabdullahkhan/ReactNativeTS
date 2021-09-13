@@ -1,19 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {
-  SafeAreaView,
-  Text,
   useColorScheme,
-  View,
 } from 'react-native';
 
 import {
@@ -21,6 +8,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import StatusBarComponent from './src/components/SharedComponents/StatusBarComponent';
 import TabNavigator from './src/navigators/TabNavigator';
+import { persistor, store } from "./src/redux/store"
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from "react-redux";
 import { primaryColor } from './src/theme/styles';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,8 +21,12 @@ const App = () => {
 
   return (
     <>
-      <StatusBarComponent barStyle={'light-content'} backgroundColor={primaryColor} />
-      <TabNavigator />
+      <Provider store={store} >
+        <PersistGate loading={null} persistor={persistor}>
+        <StatusBarComponent barStyle={'light-content'} backgroundColor={primaryColor} />
+          <TabNavigator />
+        </PersistGate>
+      </Provider>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteNames } from '../constants/routeNames';
@@ -12,6 +12,8 @@ import { faTrophy, faFolderPlus, faBriefcase, faHeart, } from '@fortawesome/free
 import { fontFamily, fontH3V3, primaryColor } from '../theme/styles';
 import { normalizeWithScale } from '../utils/fontUtil';
 import DetailScreen from '../screens/detail/DetailScreen';
+import { store } from '../redux/store';
+// import { getTopStoriesId } from '../redux/action';
 
 const Tab = createBottomTabNavigator();
 const getTabItemIcon = (route: any, focused: any) => {
@@ -50,6 +52,18 @@ const getTabItemIcon = (route: any, focused: any) => {
 }
 
 const CustomTabNavigator = () => {
+    useEffect(() => {
+        console.log("*********************** API REQUEST DEMO ************************************")
+        console.log("*********************** API REQUEST DEMO ************************************")
+        console.log("*********************** API REQUEST DEMO ************************************")
+        // store.dispatch(getTopStoriesId());
+        // setTimeout(() => {
+        //     console.log(store.getState().topStories.storiesIds)
+        // }, 5000)
+        console.log("*********************** API REQUEST DEMO ************************************")
+        console.log("*********************** API REQUEST DEMO ************************************")
+        console.log("*********************** API REQUEST DEMO ************************************")
+    }, [])
     return (
         <NavigationContainer>
             <Tab.Navigator
