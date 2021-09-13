@@ -9,9 +9,9 @@ import { StoriesType } from '../../constants/enum'
 import StoriesListView from '../shared/StoriesListView'
 import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
- 
+
 const limit = 50;
-const TopStoriesScreen: React.FC<any> = ({ topStoriesLoading,getTopStoriesData, topStoriesData, getIds, topStoriesId }: { getTopStoriesData: (page: number, limit: number) => Promise<boolean>, topStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, topStoriesId: Array<number>,topStoriesLoading : boolean }) => {
+const TopStoriesScreen: React.FC<any> = ({ topStoriesLoading, getTopStoriesData, topStoriesData, getIds, topStoriesId }: { getTopStoriesData: (page: number, limit: number) => Promise<boolean>, topStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, topStoriesId: Array<number>, topStoriesLoading: boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -40,12 +40,12 @@ const TopStoriesScreen: React.FC<any> = ({ topStoriesLoading,getTopStoriesData, 
     }
 
     return (
-        <Wrapper paddingTop={0} loadMoreData={() => getTopStories(page + 1)}>
+        <Wrapper paddingTop={5} loadMoreData={() => getTopStories(page + 1)}>
             <Text style={styles.titleTextStyle}>Top Stories Screen</Text>
             {
                 topStoriesData.map((eachData: any) => {
                     return (
-                        <StoriesListView  url={eachData.url} title={eachData.title} score={eachData.score} by={eachData.by} time={eachData.time}></StoriesListView>
+                        <StoriesListView url={eachData?.url} title={eachData?.title} score={eachData?.score} by={eachData?.by} time={eachData?.time}></StoriesListView>
                     )
                 })
 

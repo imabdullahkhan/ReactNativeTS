@@ -9,9 +9,9 @@ import { StoriesType } from '../../constants/enum'
 import StoriesListView from '../shared/StoriesListView'
 import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
- 
+
 const limit = 50;
-const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, jobStoriesId,jobStoriesLoading }: { getJobStoriesData: (page: number, limit: number) => Promise<boolean>, jobStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, jobStoriesId: Array<number>, jobStoriesLoading : boolean }) => {
+const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, jobStoriesId, jobStoriesLoading }: { getJobStoriesData: (page: number, limit: number) => Promise<boolean>, jobStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, jobStoriesId: Array<number>, jobStoriesLoading: boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -41,12 +41,12 @@ const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, j
     }
 
     return (
-        <Wrapper paddingTop={0} loadMoreData={() => getJobStories(page + 1)}>
+        <Wrapper paddingTop={5} loadMoreData={() => getJobStories(page + 1)}>
             <Text style={styles.titleTextStyle}>Job Stories Screen</Text>
             {
                 jobStoriesData.map((eachData: any) => {
                     return (
-                        <StoriesListView  url={eachData.url} title={eachData.title} score={eachData.score} by={eachData.by} time={eachData.time}></StoriesListView>
+                        <StoriesListView url={eachData?.url} title={eachData?.title} score={eachData?.score} by={eachData?.by} time={eachData?.time}></StoriesListView>
                     )
                 })
 

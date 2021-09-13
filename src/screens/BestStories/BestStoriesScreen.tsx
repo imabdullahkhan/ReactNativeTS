@@ -10,7 +10,7 @@ import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
 
 const limit = 50;
-const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestStoriesId,bestStoriesLoading }: { getBestStoriesData: (page: number, limit: number) => Promise<boolean>, bestStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, bestStoriesId: Array<number>,bestStoriesLoading :  boolean }) => {
+const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestStoriesId, bestStoriesLoading }: { getBestStoriesData: (page: number, limit: number) => Promise<boolean>, bestStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, bestStoriesId: Array<number>, bestStoriesLoading: boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -41,18 +41,18 @@ const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestSt
     }
 
     return (
-        <Wrapper paddingTop={0} loadMoreData={() => getBestStories(page + 1)}>
+        <Wrapper paddingTop={5} loadMoreData={() => getBestStories(page + 1)}>
             <Text style={styles.titleTextStyle}>Best Stories Screen</Text>
             {
                 bestStoriesData.map((eachData: any) => {
                     return (
-                        <StoriesListView key={eachData.id} url={eachData.url} title={eachData.title} score={eachData.score} by={eachData.by} time={eachData.time}></StoriesListView>
+                        <StoriesListView key={eachData?.id} url={eachData?.url} title={eachData?.title} score={eachData?.score} by={eachData?.by} time={eachData?.time}></StoriesListView>
                     )
                 })
 
             }
             {
-                loading|| bestStoriesLoading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+                loading || bestStoriesLoading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
             }
         </Wrapper>
     )

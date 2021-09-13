@@ -9,7 +9,7 @@ export const fontFamily = {
         "Bold": "Poppins-Bold",
     }
 }
-export const primaryColor = "#1E3F66";
+export const primaryColor = "#551a8b";
 export const secondaryColor = "#5697AF"
 export const secondaryColorWithOptacity = '#EEF4F7'
 export const inActiveColor = "#707070";
@@ -31,13 +31,13 @@ export const fontH4 = normalizeFont(8);
 export const fontSmallSize = normalizeFont(6);
 
 
-export const screenMainContainer : ViewStyle = {
+export const screenMainContainer: ViewStyle = {
     flex: 1,
     display: "flex",
 }
 
 export const screenTitleStyles: TextStyle = {
-    fontSize: fontH2,
+    fontSize: fontH1,
     color: primaryColor,
-    fontFamily: fontFamily.Primary.Medium
+    fontFamily: fontFamily.Primary.Bold
 }
