@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import { primaryColor } from './src/theme/styles';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
+  console.disableYellowBox = true;
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };

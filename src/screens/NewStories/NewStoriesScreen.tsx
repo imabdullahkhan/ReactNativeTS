@@ -18,9 +18,7 @@ const NewScreen: React.FC<any> = ({ newStoriesLoading,getNewStoriesData, newStor
         setLoading(true)
         getIds(StoriesType.New).then((response) => {
             let alreadyExistCount = newStoriesData.length;
-            console.log(alreadyExistCount , "alreadyExistCount")
             if (alreadyExistCount > limit) {
-                console.log("SETTING PAGE")
                 setPage(alreadyExistCount / limit);
                 
             }

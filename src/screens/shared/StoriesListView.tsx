@@ -3,7 +3,7 @@ import { Share, View, TouchableOpacity, ScrollView, Text, FlatList, Linking, } f
 import { fontFamily, fontH2, fontH3, greyedSchemeColor, primaryColor } from "../../theme/styles";
 import { normalizeHeight, normalizeWidth } from "../../utils/fontUtil";
 
-const StoriesListView = ({ url, title, score, by, time }: { url: string, title: string, score: number, by: string, time: number }) => {
+const StoriesListView = React.memo(({ url, title, score, by, time }: { url: string, title: string, score: number, by: string, time: number }) => {
     const loadInBrowser = (url: string) => {
         Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
     };
@@ -21,7 +21,6 @@ const StoriesListView = ({ url, title, score, by, time }: { url: string, title: 
                         <Text style={{ color: greyedSchemeColor, fontSize: fontH3, marginRight: normalizeWidth(2) }}>{`${score} Points`}</Text>
                         <Text style={{ color: greyedSchemeColor, fontSize: fontH3, marginRight: normalizeWidth(2) }}>{`by ${by}`}</Text>
                         <Text style={{ color: greyedSchemeColor, fontSize: fontH3, marginRight: normalizeWidth(2) }}>{new Date(time).toString()}</Text>
-                        {/* <Text style={{ color: greyedSchemeColor, fontSize: fontH3, textDecorationLine: 'underline' }}>{`${item?.kids?.length} Share`}</Text> */}
                     </View>
                     <TouchableOpacity onPress={handleShare} style={{ padding: normalizeWidth(10), backgroundColor: primaryColor, borderRadius: normalizeWidth(10), width: normalizeWidth(80), marginTop: normalizeHeight(10), marginBottom: normalizeHeight(10) }}>
                         <Text style={{ color: '#FFFFFF', textAlign: 'center' }}>Share</Text>
@@ -31,5 +30,5 @@ const StoriesListView = ({ url, title, score, by, time }: { url: string, title: 
 
         </View>
     )
-}
+})
 export default StoriesListView;
