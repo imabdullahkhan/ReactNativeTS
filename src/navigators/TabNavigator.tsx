@@ -77,11 +77,11 @@ const CustomTabNavigator = () => {
                     },
                 })}
             >
+                <Tab.Screen name={RouteNames.User.Details} component={DetailScreen} />
                 <Tab.Screen name={RouteNames.User.Home} component={HomeScreen} />
                 <Tab.Screen name={RouteNames.User.NewsFeed} component={NewsFeedScreen} />
                 <Tab.Screen name={RouteNames.User.Contacts} component={ContactScreen} />
                 <Tab.Screen name={RouteNames.User.Albums} component={AlbumScreen} />
-                <Tab.Screen name={RouteNames.User.Details} component={DetailScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )
