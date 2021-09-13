@@ -34,8 +34,6 @@ export const fontSmallSize = normalizeFont(6);
 export const screenMainContainer : ViewStyle = {
     flex: 1,
     display: "flex",
-    justifyContent: 'center',
-    alignItems: 'center'
 }
 
 export const screenTitleStyles: TextStyle = {

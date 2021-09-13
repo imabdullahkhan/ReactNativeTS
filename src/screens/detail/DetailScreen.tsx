@@ -1,51 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { View, TouchableOpacity, ScrollView, Text, FlatList, Linking } from "react-native";
+import { connect } from "react-redux";
+import Wrapper from "../../components/SharedComponents/Wrapper";
 import { fontFamily, fontH2, fontH3, greyedSchemeColor } from "../../theme/styles";
 import { normalizeWidth } from "../../utils/fontUtil";
-// import Text from "@shared-components/text-wrapper/TextWrapper";
-
-// export default class DetailScreen extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text h1>Detail Screen</Text>
-//         <TouchableOpacity
-//           style={styles.buttonStyle}
-//           onPress={() => NavigationService.goBack()}
-//         >
-//           <Text color={colors.light.white}>Go back to Home</Text>
-//         </TouchableOpacity>
-//       </View>
-//     );
-//   }
-// }
 const DetailScreen = ({ data }: { data: Array<any> }) => {
-  // let data = [
-  //   {
-  //     "id": 0,
-  //     "heading": "Fortran Web Framework",
-  //     "points": 20,
-  //     "by": "freddier",
-  //     "date": "1 hour ago",
-  //     "comments": 28
-  //   },
-  //   {
-  //     "id": 1,
-  //     "heading": "Fortran Web Framework",
-  //     "points": 20,
-  //     "by": "freddier",
-  //     "date": "1 hour ago",
-  //     "comments": 28
-  //   },
-  //   {
-  //     "id": 2,
-  //     "heading": "Fortran Web Framework",
-  //     "points": 20,
-  //     "by": "freddier",
-  //     "date": "1 hour ago",
-  //     "comments": 28
-  //   }
-  // ]
+  console.log(Object.keys(data)[0]);
+  console.log(Object.values(data)[0]);
+  const [page, setPage] = useState(1)
+  const getAllDetails = (page = 1) => {
+    // if (data.length < totalCount || page === 1) {
+    console.log("GETTING Detail DATA****************************************************")
+    // setPage(page);
+    // getDriver(page);
+    // }
+  }
   const renderItem = ({ item }: { item: any }) => {
     return (
       <TouchableOpacity onPress={() => loadInBrowser(item?.url)}>
@@ -66,16 +35,29 @@ const DetailScreen = ({ data }: { data: Array<any> }) => {
   };
   return (
     <>
-      <View style={{ flex: 1, backgroundColor: 'white', padding: normalizeWidth(10) }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={data}
-          renderItem={renderItem}
-        // renderItem={(by:string, id:number, score:number, time:number, title:string, type:string, url:string, kids:Array<number>) =>renderItem(by, id, score, time, title, type, url, kids)}
-        />
+      <Wrapper paddingTop={0} loadMoreData={() => getAllDetails(page + 1)}>
+        {
 
-      </View>
+          !data.length ?
+            <Text>Not Found</Text> : <View style={{ flex: 1, backgroundColor: 'white', padding: normalizeWidth(10) }}>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={Object.values(data)}
+                renderItem={renderItem}
+              // renderItem={(by:string, id:number, score:number, time:number, title:string, type:string, url:string, kids:Array<number>) =>renderItem(by, id, score, time, title, type, url, kids)}
+              />
+            </View>
+        }
+      </Wrapper>
     </>
   )
 }
-export default DetailScreen
+
+
+const mapStateToProps = (state: any) => {
+  return {
+    data: state.detail.data
+  }
+}
+
+export default connect(mapStateToProps, null)(DetailScreen);
