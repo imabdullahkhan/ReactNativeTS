@@ -11,8 +11,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTrophy, faFolderPlus, faBriefcase, faHeart, } from '@fortawesome/free-solid-svg-icons'
 import { fontFamily, fontH3V3, primaryColor } from '../theme/styles';
 import { normalizeWithScale } from '../utils/fontUtil';
+import DetailScreen from '../screens/detail/DetailScreen';
 import { store } from '../redux/store';
-import { getIds, getStoriesData, getTopStoriesData } from '../redux/action';
+import { getIds } from '../redux/action';
 import { StoriesType } from '../constants/enum';
 
 const Tab = createBottomTabNavigator();
@@ -52,12 +53,6 @@ const getTabItemIcon = (route: any, focused: any) => {
 }
 
 const CustomTabNavigator = () => {
-    useEffect(() => {
-        store.dispatch(getIds(StoriesType.Top));
-        store.dispatch(getIds(StoriesType.Best));
-        store.dispatch(getIds(StoriesType.Job));
-        store.dispatch(getIds(StoriesType.New));
-    }, [])
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -82,10 +77,11 @@ const CustomTabNavigator = () => {
                     },
                 })}
             >
+                <Tab.Screen name={RouteNames.User.Jobs} component={JobScreen} />
+                <Tab.Screen name={RouteNames.User.BestStories} component={BestStoriesScreen} />
+                {/* <Tab.Screen name={RouteNames.User.Detail} component={DetailScreen} /> */}
                 <Tab.Screen name={RouteNames.User.TopStories} component={TopStories} />
                 <Tab.Screen name={RouteNames.User.NewStories} component={NewStoriesScreen} />
-                <Tab.Screen name={RouteNames.User.BestStories} component={BestStoriesScreen} />
-                <Tab.Screen name={RouteNames.User.Jobs} component={JobScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

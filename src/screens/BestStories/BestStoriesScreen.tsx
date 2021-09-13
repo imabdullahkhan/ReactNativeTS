@@ -1,14 +1,74 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, Text, View } from 'react-native'
+import { connect } from 'react-redux'
 import styles from "./BestStories.style"
+import { getBestStoriesData, getIds } from "../../redux/action/index"
+import Wrapper from '../../components/SharedComponents/Wrapper'
+import { StoriesType } from '../../constants/enum'
+import StoriesListView from '../shared/StoriesListView'
+import { primaryColor } from '../../theme/styles'
+import { normalizeWidth } from '../../utils/fontUtil'
 
-const BestStoriesScreen: React.FC<any> = () => {
+const limit = 50;
+const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestStoriesId }: { getBestStoriesData: (page: number, limit: number) => Promise<boolean>, bestStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, bestStoriesId: Array<number> }) => {
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        getIds(StoriesType.Best).then((response) => {
+            let alreadyExistCount = bestStoriesData.length;
+            console.log(alreadyExistCount)
+            if (alreadyExistCount > limit) {
+                setPage(alreadyExistCount / limit);
+            }
+        })
+
+    }, [])
+    useEffect(() => {
+        if (page === 1) {
+            getBestStories(1, limit);
+        }
+    }, [bestStoriesId.length])
+    const getBestStories = async (page: number = 1, limit: number = 50) => {
+        console.log(bestStoriesId.length)
+        console.log(bestStoriesData.length)
+        console.log(bestStoriesId.length > bestStoriesData.length, loading, "bestStoriesId.length > bestStoriesData.lengt")
+        if (!loading && bestStoriesId.length > bestStoriesData.length) {
+            setPage(page);
+            setLoading(true)
+            getBestStoriesData(page, limit)
+            setTimeout(() => {
+                setLoading(false)
+            }, 5000)
+        }
+
+    }
+
     return (
-        <View style={styles.container}>
+        <Wrapper paddingTop={0} loadMoreData={() => getBestStories(page + 1)}>
             <Text style={styles.titleTextStyle}>Best Stories Screen</Text>
-        </View>
+            {
+                bestStoriesData.map((eachData: any) => {
+                    return (
+                        <StoriesListView key={eachData.id} url={eachData.url} title={eachData.title} score={eachData.score} by={eachData.by} time={eachData.time}></StoriesListView>
+                    )
+                })
+
+            }
+            {
+                loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+            }
+        </Wrapper>
     )
 }
-
-export default BestStoriesScreen
+const mapStateToProps = (state: any) => {
+    return {
+        bestStoriesData: state.serviceReducer.bestStoriesData,
+        bestStoriesId: state.serviceReducer.bestStoriesId,
+    }
+}
+const mapDispatchToProps = {
+    getBestStoriesData,
+    getIds
+}
+export default connect(mapStateToProps, mapDispatchToProps)(BestStoriesScreen as any)
 
