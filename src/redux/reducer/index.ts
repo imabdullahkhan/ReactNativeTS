@@ -1,4 +1,4 @@
 import { combineReducers } from "redux";
-import topStoriesReducer from './topStoriesReducer';
-const appReducer: any = combineReducers({ topStories: topStoriesReducer })
+import serviceReducer from './serviceReducer';
+const appReducer: any = combineReducers({ serviceReducer: serviceReducer })
 export default appReducer;

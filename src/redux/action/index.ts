@@ -1,1 +1,1 @@
-export * from "./topStoriesAction"
+export * from "./serviceAction"
