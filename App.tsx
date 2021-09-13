@@ -26,7 +26,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+import { persistor, store } from "./src/redux/store"
 const Section: React.FC<{
   title: string;
 }> = ({children, title}) => {
