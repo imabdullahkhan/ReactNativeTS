@@ -4,7 +4,10 @@ const {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
-
+import {
+    widthPercentageToDP as wp2dp,
+    heightPercentageToDP as hp2dp,
+} from 'react-native-responsive-screen';
 const devHeight = 640; //Phone height during development
 const devWidth = 360; //width
 
@@ -23,10 +26,10 @@ const [shortDimension, longDimension] = width < height ? [width, height] : [heig
 const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
 
-export const scalef = size => shortDimension / guidelineBaseWidth * size;
-export const verticalScale = size => longDimension / guidelineBaseHeight * size;
-export const moderateScale = (size, factor = 0.5) => size + (scalef(size) - size) * factor;
-export const moderateVerticalScale = (size, factor = 0.5) => size + (verticalScale(size) - size) * factor;
+export const scalef = (size: number) => shortDimension / guidelineBaseWidth * size;
+export const verticalScale = (size: number) => longDimension / guidelineBaseHeight * size;
+export const moderateScale = (size: number, factor = 0.5) => size + (scalef(size) - size) * factor;
+export const moderateVerticalScale = (size: number, factor = 0.5) => size + (verticalScale(size) - size) * factor;
 
 //gain
 export const RNHeight = deviceHeight / devHeight;
@@ -34,9 +37,8 @@ export const RNWidth = deviceWidth / devWidth;
 
 // based on iphone 5s's scale
 export const scale = SCREEN_WIDTH / 320;
-// console.log("scale", scale)
-// console.log("SCREEN_WIDTH", SCREEN_WIDTH)
-export const normalizeFont = (size) => {
+
+export const normalizeFont = (size: number) => {            // For Normalizing the font size for all type of screens, Including iPad, iPhone, Tablet, Android
     const newSize = moderateScale(size)
     if (Platform.OS === 'ios') {
         return Math.round(PixelRatio.roundToNearestPixel(newSize))
@@ -46,15 +48,17 @@ export const normalizeFont = (size) => {
 }
 
 // Use this function to normalize image size
-export const normalizeWithScale = (size) => {
+export const normalizeWithScale = (size: number) => {    // For Normalizing the Icon size for different screens
     return moderateScale(size, 0.40);
 }
 
-export const normalizeHeight = (size) => {
-    return moderateScale(size, 0.25);
+export const normalizeHeight = (size: number) => {      // For Normalizing the Height for different screens
+    // return moderateScale(size, 0.25);
+    return hp2dp((size / 760) * 100 + '%');
 }
 
-export const normalizeWidth = (size) => {
-    return moderateScale(size, 0.25)
+export const normalizeWidth = (size: number) => {       // For Normalizing the Width for different screens
+    // return moderateScale(size, 0.25)
+    return wp2dp((size / 360) * 100 + '%');
     // return RNWidth * size;
 }
