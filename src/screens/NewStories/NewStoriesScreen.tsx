@@ -11,17 +11,20 @@ import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
  
 const limit = 50;
-const NewScreen: React.FC<any> = ({ getNewStoriesData, newStoriesData, getIds, newStoriesId }: { getNewStoriesData: (page: number, limit: number) => Promise<boolean>, newStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, newStoriesId: Array<number> }) => {
+const NewScreen: React.FC<any> = ({ newStoriesLoading,getNewStoriesData, newStoriesData, getIds, newStoriesId }: { getNewStoriesData: (page: number, limit: number) => Promise<boolean>, newStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, newStoriesId: Array<number>,newStoriesLoading :boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true)
         getIds(StoriesType.New).then((response) => {
             let alreadyExistCount = newStoriesData.length;
             console.log(alreadyExistCount , "alreadyExistCount")
             if (alreadyExistCount > limit) {
                 console.log("SETTING PAGE")
                 setPage(alreadyExistCount / limit);
+                
             }
+            setLoading(false);
         })
 
     }, [])
@@ -31,13 +34,10 @@ const NewScreen: React.FC<any> = ({ getNewStoriesData, newStoriesData, getIds, n
         }
     }, [newStoriesId.length])
     const getNewStories = async (page: number = 1, limit: number = 50) => {
-        if (!loading && newStoriesId.length > newStoriesData.length) {
+        if (!newStoriesLoading && newStoriesId.length > newStoriesData.length) {
             setPage(page);
-            setLoading(true)
             getNewStoriesData(page, limit)
-            setTimeout(() => {
-                setLoading(false)
-            }, 5000)
+            setLoading(false)
         }
 
     }
@@ -54,7 +54,7 @@ const NewScreen: React.FC<any> = ({ getNewStoriesData, newStoriesData, getIds, n
 
             }
             {
-                loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+                newStoriesLoading || loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
             }
         </Wrapper>
     )
@@ -63,6 +63,7 @@ const mapStateToProps = (state: any) => {
     return {
         newStoriesData: state.serviceReducer.newStoriesData,
         newStoriesId: state.serviceReducer.newStoriesId,
+        newStoriesLoading: state.serviceReducer.newStoriesLoading,
     }
 }
 const mapDispatchToProps = {

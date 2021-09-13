@@ -10,16 +10,17 @@ import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
 
 const limit = 50;
-const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestStoriesId }: { getBestStoriesData: (page: number, limit: number) => Promise<boolean>, bestStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, bestStoriesId: Array<number> }) => {
+const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestStoriesId,bestStoriesLoading }: { getBestStoriesData: (page: number, limit: number) => Promise<boolean>, bestStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, bestStoriesId: Array<number>,bestStoriesLoading :  boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true)
         getIds(StoriesType.Best).then((response) => {
             let alreadyExistCount = bestStoriesData.length;
-            console.log(alreadyExistCount)
             if (alreadyExistCount > limit) {
                 setPage(alreadyExistCount / limit);
             }
+            setLoading(false);
         })
 
     }, [])
@@ -29,12 +30,8 @@ const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestSt
         }
     }, [bestStoriesId.length])
     const getBestStories = async (page: number = 1, limit: number = 50) => {
-        console.log(bestStoriesId.length)
-        console.log(bestStoriesData.length)
-        console.log(bestStoriesId.length > bestStoriesData.length, loading, "bestStoriesId.length > bestStoriesData.lengt")
-        if (!loading && bestStoriesId.length > bestStoriesData.length) {
+        if (!bestStoriesLoading && bestStoriesId.length > bestStoriesData.length) {
             setPage(page);
-            setLoading(true)
             getBestStoriesData(page, limit)
             setTimeout(() => {
                 setLoading(false)
@@ -55,7 +52,7 @@ const BestStoriesScreen = ({ getBestStoriesData, bestStoriesData, getIds, bestSt
 
             }
             {
-                loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+                loading|| bestStoriesLoading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
             }
         </Wrapper>
     )
@@ -64,6 +61,7 @@ const mapStateToProps = (state: any) => {
     return {
         bestStoriesData: state.serviceReducer.bestStoriesData,
         bestStoriesId: state.serviceReducer.bestStoriesId,
+        bestStoriesLoading: state.serviceReducer.bestStoriesLoading,
     }
 }
 const mapDispatchToProps = {

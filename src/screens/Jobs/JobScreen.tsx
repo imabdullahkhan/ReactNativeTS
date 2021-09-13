@@ -11,17 +11,18 @@ import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
  
 const limit = 50;
-const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, jobStoriesId }: { getJobStoriesData: (page: number, limit: number) => Promise<boolean>, jobStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, jobStoriesId: Array<number> }) => {
+const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, jobStoriesId,jobStoriesLoading }: { getJobStoriesData: (page: number, limit: number) => Promise<boolean>, jobStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, jobStoriesId: Array<number>, jobStoriesLoading : boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true)
         getIds(StoriesType.Job).then((response) => {
             let alreadyExistCount = jobStoriesData.length;
-            console.log(alreadyExistCount , "alreadyExistCount")
             if (alreadyExistCount > limit) {
                 console.log("SETTING PAGE")
                 setPage(alreadyExistCount / limit);
             }
+            setLoading(false);
         })
 
     }, [])
@@ -31,13 +32,10 @@ const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, j
         }
     }, [jobStoriesId.length])
     const getJobStories = async (page: number = 1, limit: number = 50) => {
-        if (!loading && jobStoriesId.length > jobStoriesData.length) {
+        if (!jobStoriesLoading && jobStoriesId.length > jobStoriesData.length) {
             setPage(page);
-            setLoading(true)
             getJobStoriesData(page, limit)
-            setTimeout(() => {
-                setLoading(false)
-            }, 5000)
+            setLoading(false)
         }
 
     }
@@ -54,7 +52,7 @@ const JobScreen: React.FC<any> = ({ getJobStoriesData, jobStoriesData, getIds, j
 
             }
             {
-                loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+                loading || jobStoriesLoading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
             }
         </Wrapper>
     )
@@ -63,6 +61,7 @@ const mapStateToProps = (state: any) => {
     return {
         jobStoriesData: state.serviceReducer.jobStoriesData,
         jobStoriesId: state.serviceReducer.jobStoriesId,
+        jobStoriesLoading: state.serviceReducer.jobStoriesLoading,
     }
 }
 const mapDispatchToProps = {

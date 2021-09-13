@@ -11,17 +11,17 @@ import { primaryColor } from '../../theme/styles'
 import { normalizeWidth } from '../../utils/fontUtil'
  
 const limit = 50;
-const TopStoriesScreen: React.FC<any> = ({ getTopStoriesData, topStoriesData, getIds, topStoriesId }: { getTopStoriesData: (page: number, limit: number) => Promise<boolean>, topStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, topStoriesId: Array<number> }) => {
+const TopStoriesScreen: React.FC<any> = ({ topStoriesLoading,getTopStoriesData, topStoriesData, getIds, topStoriesId }: { getTopStoriesData: (page: number, limit: number) => Promise<boolean>, topStoriesData: Array<{ url: string, title: string, score: number, by: string, time: number }>, getIds: (type: any) => Promise<Boolean>, topStoriesId: Array<number>,topStoriesLoading : boolean }) => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true);
         getIds(StoriesType.Top).then((response) => {
             let alreadyExistCount = topStoriesData.length;
-            console.log(alreadyExistCount , "alreadyExistCount")
             if (alreadyExistCount > limit) {
-                console.log("SETTING PAGE")
                 setPage(alreadyExistCount / limit);
             }
+            setLoading(false);
         })
 
     }, [])
@@ -31,13 +31,10 @@ const TopStoriesScreen: React.FC<any> = ({ getTopStoriesData, topStoriesData, ge
         }
     }, [topStoriesId.length])
     const getTopStories = async (page: number = 1, limit: number = 50) => {
-        if (!loading && topStoriesId.length > topStoriesData.length) {
+        if (!topStoriesLoading && topStoriesId.length > topStoriesData.length) {
             setPage(page);
-            setLoading(true)
             getTopStoriesData(page, limit)
-            setTimeout(() => {
-                setLoading(false)
-            }, 5000)
+            setLoading(false)
         }
 
     }
@@ -54,7 +51,7 @@ const TopStoriesScreen: React.FC<any> = ({ getTopStoriesData, topStoriesData, ge
 
             }
             {
-                loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
+                topStoriesLoading || loading ? <ActivityIndicator size={'large'} color={primaryColor} style={{ padding: normalizeWidth(20) }} /> : <></>
             }
         </Wrapper>
     )
@@ -63,6 +60,7 @@ const mapStateToProps = (state: any) => {
     return {
         topStoriesData: state.serviceReducer.topStoriesData,
         topStoriesId: state.serviceReducer.topStoriesId,
+        topStoriesLoading: state.serviceReducer.topStoriesLoading,
     }
 }
 const mapDispatchToProps = {
