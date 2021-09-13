@@ -2,18 +2,51 @@ import React from 'react'
 import { Image, Text } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RouteNames } from '../constants/routeNames';
-import HomeScreen from '../screens/home/HomeScreen';
-import NewsFeedScreen from '../screens/newsfeed/NewsFeed';
-import ContactScreen from '../screens/contact/ContactScreen';
-import AlbumScreen from '../screens/album/AlbumScreen';
-import DetailScreen from '../screens/detail/DetailScreen';
+import TopStories from '../screens/TopStories/TopStoriesScreen';
+import NewStoriesScreen from '../screens/NewStories/NewStoriesScreen';
+import BestStoriesScreen from '../screens/BestStories/BestStoriesScreen';
+import JobScreen from '../screens/Jobs/JobScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCog, faHome, faMapMarkerAlt, faStickyNote } from '@fortawesome/free-solid-svg-icons'
+import { faTrophy, faFolderPlus, faBriefcase, faHeart, } from '@fortawesome/free-solid-svg-icons'
 import { fontFamily, fontH3V3, primaryColor } from '../theme/styles';
 import { normalizeWithScale } from '../utils/fontUtil';
 
 const Tab = createBottomTabNavigator();
+const getTabItemIcon = (route: any, focused: any) => {
+    if (route.name === RouteNames.User.TopStories) {
+        return (
+            <FontAwesomeIcon
+                icon={faTrophy}
+                color={!focused ? '#2B3D5F40' : primaryColor}
+                size={normalizeWithScale(22)}
+            />
+        )
+    }
+    if (route.name === RouteNames.User.NewStories) {
+        return (
+            <FontAwesomeIcon
+                icon={faFolderPlus}
+                color={!focused ? '#2B3D5F40' : primaryColor}
+                size={normalizeWithScale(22)}
+            />)
+    }
+    if (route.name === RouteNames.User.BestStories) {
+        return (<FontAwesomeIcon
+            icon={faHeart}
+            color={!focused ? '#2B3D5F40' : primaryColor}
+            size={normalizeWithScale(22)}
+        />)
+    }
+    if (route.name === RouteNames.User.Jobs) {
+        return (
+            <FontAwesomeIcon
+                icon={faBriefcase}
+                color={!focused ? '#2B3D5F40' : primaryColor}
+                size={normalizeWithScale(22)}
+            />)
+    }
+}
 
 const CustomTabNavigator = () => {
     return (
@@ -34,54 +67,16 @@ const CustomTabNavigator = () => {
                         )
                     },
                     tabBarIcon: ({ focused, color, size }) => {
-                        if (route.name === RouteNames.User.Home) {
-                            return (
-                                <FontAwesomeIcon
-                                    icon={faHome}
-                                    color={!focused ? '#2B3D5F40' : primaryColor}
-                                    size={normalizeWithScale(22)}
-                                />
-                            )
-                        }
-                        if (route.name === RouteNames.User.NewsFeed) {
-                            return (
-                                <FontAwesomeIcon
-                                    icon={faStickyNote}
-                                    color={!focused ? '#2B3D5F40' : primaryColor}
-                                    size={normalizeWithScale(22)}
-                                />)
-                        }
-                        if (route.name === RouteNames.User.Contacts) {
-                            return (<FontAwesomeIcon
-                                icon={faMapMarkerAlt}
-                                color={!focused ? '#2B3D5F40' : primaryColor}
-                                size={normalizeWithScale(22)}
-                            />)
-                        }
-                        if (route.name === RouteNames.User.Albums) {
-                            return (
-                                <FontAwesomeIcon
-                                    icon={faCog}
-                                    color={!focused ? '#2B3D5F40' : primaryColor}
-                                    size={normalizeWithScale(22)}
-                                />)
-                        }
-                        if (route.name === RouteNames.User.Details) {
-                            return (
-                                <FontAwesomeIcon
-                                    icon={faCog}
-                                    color={!focused ? '#2B3D5F40' : primaryColor}
-                                    size={normalizeWithScale(22)}
-                                />)
-                        }
+                        return (
+                            getTabItemIcon(route, focused)
+                        )
                     },
                 })}
             >
-                <Tab.Screen name={RouteNames.User.Details} component={DetailScreen} />
-                <Tab.Screen name={RouteNames.User.Home} component={HomeScreen} />
-                <Tab.Screen name={RouteNames.User.NewsFeed} component={NewsFeedScreen} />
-                <Tab.Screen name={RouteNames.User.Contacts} component={ContactScreen} />
-                <Tab.Screen name={RouteNames.User.Albums} component={AlbumScreen} />
+                <Tab.Screen name={RouteNames.User.TopStories} component={TopStories} />
+                <Tab.Screen name={RouteNames.User.NewStories} component={NewStoriesScreen} />
+                <Tab.Screen name={RouteNames.User.BestStories} component={BestStoriesScreen} />
+                <Tab.Screen name={RouteNames.User.Jobs} component={JobScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

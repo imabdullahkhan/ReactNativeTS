@@ -1,9 +1,8 @@
 export const RouteNames: any = {
   "User": {
-    "Home": "Home",
-    "NewsFeed": "News Feed",
-    "Contacts": "Contacts",
-    "Albums": "Albums",
-    "Details": "Details"
+    "TopStories": "Top Stories",
+    "NewStories": "New Stories",
+    "BestStories": "Best Stories",
+    "Jobs": "Jobs",
   }
 }

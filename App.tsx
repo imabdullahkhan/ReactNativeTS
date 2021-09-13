@@ -21,35 +21,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import StatusBarComponent from './src/components/SharedComponents/StatusBarComponent';
 import TabNavigator from './src/navigators/TabNavigator';
-
-// const Section: React.FC<{
-//   title: string;
-// }> = ({ children, title }) => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
-
+import { primaryColor } from './src/theme/styles';
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -59,7 +31,7 @@ const App = () => {
 
   return (
     <>
-      <StatusBarComponent barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBarComponent barStyle={'light-content'} backgroundColor={primaryColor} />
       <TabNavigator />
     </>
   );
